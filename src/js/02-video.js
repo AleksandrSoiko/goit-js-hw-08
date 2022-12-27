@@ -8,9 +8,7 @@ const player = new Player(iframe);
 
 player.on('timeupdate', throttle(updateLocalStorage, 1000));
 
-player.setCurrentTime(
-  JSON.parse(localStorage.getItem('videoplayer-current-time'))
-);
+setCurrentTime();
 
 player.getVideoTitle().then(function (title) {
   console.log('title:', title);
@@ -21,4 +19,12 @@ function updateLocalStorage(currentTime) {
     'videoplayer-current-time',
     JSON.stringify(currentTime.seconds)
   );
+}
+
+function setCurrentTime() {
+  if (localStorage.length > 0) {
+    player.setCurrentTime(
+      JSON.parse(localStorage.getItem('videoplayer-current-time'))
+    );
+  }
 }
