@@ -35,10 +35,17 @@ function storageValueToInput() {
 
 feedbackFormRef.addEventListener('submit', event => {
   event.preventDefault();
-  console.log(localStorageService.load(STORAGE_KEY));
-  feedbackFormRef.elements.email.value = '';
-  feedbackFormRef.elements.message.value = '';
-  localStorageService.remove(STORAGE_KEY);
+  if (
+    feedbackFormRef.elements.email.value !== '' &&
+    feedbackFormRef.elements.message.value !== ''
+  ) {
+    console.log(localStorageService.load(STORAGE_KEY));
+    feedbackFormRef.elements.email.value = '';
+    feedbackFormRef.elements.message.value = '';
+    localStorageService.remove(STORAGE_KEY);
+  } else {
+    alert('Заполните все поля');
+  }
 });
 
 // console.log(Object.keys(localStorage).includes(STORAGE_KEY));
