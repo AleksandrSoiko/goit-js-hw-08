@@ -3,7 +3,7 @@ import localStorageService from './localStorageService';
 const throttle = require('lodash.throttle');
 
 const feedbackFormRef = document.querySelector('.feedback-form');
-const STORAGE_KEY = `feedback-form-state`;
+const STORAGE_KEY = 'feedback-form-state';
 const TO_STORAGE_OBJECT = {};
 
 storageValueToInput();
@@ -20,7 +20,12 @@ feedbackFormRef.addEventListener(
 );
 
 function storageValueToInput() {
-  if (localStorage.length > 0) {
+  const storageData = localStorageService.load(STORAGE_KEY);
+  if (
+    localStorage.length > 0 &&
+    Object.keys(localStorage).includes(STORAGE_KEY)
+  ) {
+    const storageData = localStorageService.load(STORAGE_KEY);
     feedbackFormRef.elements.email.value =
       localStorageService.load(STORAGE_KEY).email;
     feedbackFormRef.elements.message.value =
@@ -35,3 +40,5 @@ feedbackFormRef.addEventListener('submit', event => {
   feedbackFormRef.elements.message.value = '';
   localStorageService.remove(STORAGE_KEY);
 });
+
+// console.log(Object.keys(localStorage).includes(STORAGE_KEY));
