@@ -22,7 +22,10 @@ function updateLocalStorage(currentTime) {
 }
 
 function setCurrentTime() {
-  if (localStorage.length > 0) {
+  if (
+    localStorage.length > 0 &&
+    Object.keys(localStorage).includes('videoplayer-current-time')
+  ) {
     player.setCurrentTime(
       JSON.parse(localStorage.getItem('videoplayer-current-time'))
     );
