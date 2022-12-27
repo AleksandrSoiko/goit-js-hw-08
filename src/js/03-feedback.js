@@ -3,7 +3,7 @@ import localStorageService from './localStorageService';
 const throttle = require('lodash.throttle');
 
 const feedbackFormRef = document.querySelector('.feedback-form');
-const STORAGE_KEY = 'feedback-form-state';
+const STORAGE_KEY = `feedback-form-state`;
 const TO_STORAGE_OBJECT = {};
 
 storageValueToInput();
