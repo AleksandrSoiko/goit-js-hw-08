@@ -48,7 +48,9 @@ feedbackFormRef.addEventListener('submit', event => {
   ) {
     console.log(localStorageService.load(STORAGE_KEY));
     feedbackFormRef.elements.email.value = '';
+    TO_STORAGE_OBJECT.email = '';
     feedbackFormRef.elements.message.value = '';
+    TO_STORAGE_OBJECT.message = '';
     localStorageService.remove(STORAGE_KEY);
   } else {
     alert('Заполните все поля');
