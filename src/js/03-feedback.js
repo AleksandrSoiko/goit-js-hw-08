@@ -4,7 +4,10 @@ const throttle = require('lodash.throttle');
 
 const feedbackFormRef = document.querySelector('.feedback-form');
 const STORAGE_KEY = 'feedback-form-state';
-const TO_STORAGE_OBJECT = {};
+const TO_STORAGE_OBJECT = {
+  email: '',
+  message: '',
+};
 
 storageValueToInput();
 feedbackFormRef.addEventListener(
@@ -12,22 +15,26 @@ feedbackFormRef.addEventListener(
   throttle(event => {
     if (event.target.name === 'email') {
       TO_STORAGE_OBJECT.email = event.target.value;
-    } else {
-      TO_STORAGE_OBJECT.message = event.target.value;
+      localStorageService.save(STORAGE_KEY, TO_STORAGE_OBJECT);
     }
-    localStorageService.save(STORAGE_KEY, TO_STORAGE_OBJECT);
+    if (event.target.name === 'message') {
+      TO_STORAGE_OBJECT.message = event.target.value;
+      localStorageService.save(STORAGE_KEY, TO_STORAGE_OBJECT);
+    }
   })
 );
+// console.log(Object.keys(localStorageService.load(STORAGE_KEY)));
 
 function storageValueToInput() {
-  const storageData = localStorageService.load(STORAGE_KEY);
   if (
     localStorage.length > 0 &&
     Object.keys(localStorage).includes(STORAGE_KEY)
   ) {
-    const storageData = localStorageService.load(STORAGE_KEY);
+    TO_STORAGE_OBJECT.email = localStorageService.load(STORAGE_KEY).email;
+    TO_STORAGE_OBJECT.message = localStorageService.load(STORAGE_KEY).message;
     feedbackFormRef.elements.email.value =
       localStorageService.load(STORAGE_KEY).email;
+
     feedbackFormRef.elements.message.value =
       localStorageService.load(STORAGE_KEY).message;
   }
